@@ -1,5 +1,6 @@
 const defaultResult = 0;
 var currentResult = defaultResult;
+var logEntries = [];
 
 function getUserInputNumber() {
   return parseFloat(userInput.value);
@@ -8,6 +9,21 @@ function getUserInputNumber() {
 function createAndWriteOutput(operator, resultBeforeCal, enteredNumber) {
   const calDescription = `${resultBeforeCal} ${operator} ${enteredNumber}`;
   outputResult(currentResult, calDescription);
+}
+
+function writeToLog(
+  operationIdentifier,
+  preResult,
+  operationNumber,
+  newResult
+) {
+  const logEntry = {
+    operation: operationIdentifier,
+    preResult: preResult,
+    number: operationNumber,
+    result: newResult,
+  };
+  logEntries.push(logEntry);
 }
 
 function resetInput() {
@@ -21,6 +37,7 @@ function add() {
   currentResult = currentResult + enteredNumber;
   createAndWriteOutput("+", initialResult, enteredNumber);
   resetInput();
+  writeToLog("ADD", initialResult, enteredNumber, currentResult);
 }
 function subtract() {
   const enteredNumber = getUserInputNumber();
@@ -28,6 +45,7 @@ function subtract() {
   currentResult = currentResult - enteredNumber;
   createAndWriteOutput("-", initialResult, enteredNumber);
   resetInput();
+  writeToLog("SUBSTRACT", initialResult, enteredNumber, currentResult);
 }
 function multiply() {
   const enteredNumber = getUserInputNumber();
@@ -35,6 +53,7 @@ function multiply() {
   currentResult = currentResult * enteredNumber;
   createAndWriteOutput("*", initialResult, enteredNumber);
   resetInput();
+  writeToLog("MULTIPLY", initialResult, enteredNumber, currentResult);
 }
 function divide() {
   const enteredNumber = getUserInputNumber();
@@ -42,6 +61,7 @@ function divide() {
   currentResult = currentResult / enteredNumber;
   createAndWriteOutput("/", initialResult, enteredNumber);
   resetInput();
+  writeToLog("DIVIDE", initialResult, enteredNumber, currentResult);
 }
 
 resetInput();
